@@ -1,0 +1,95 @@
+name: Build EXE - One Click
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: read
+
+jobs:
+  build-exe:
+    name: Create OnyxRFLab.exe
+    runs-on: windows-latest
+
+    steps:
+      - name: Get project
+        uses: actions/checkout@v4
+
+      - name: Install .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Rebuild project source
+        shell: pwsh
+        run: |
+          $parts = @(
+            "source/part01.b64",
+            "source/part01b1.b64",
+            "source/part01b2.b64",
+            "source/part02.b64",
+            "source/part03.b64",
+            "source/part04.b64",
+            "source/part05.b64",
+            "source/part06.b64"
+          )
+
+          $base64 = ""
+          foreach ($part in $parts) {
+            if (-not (Test-Path $part)) {
+              throw "Missing source package part: $part"
+            }
+            $base64 += (Get-Content $part -Raw).Trim()
+          }
+
+          if ($base64.Length -ne 66544) {
+            throw "Source package integrity error. Expected 66544 base64 characters, found $($base64.Length)."
+          }
+
+          $zipBytes = [Convert]::FromBase64String($base64)
+          [IO.File]::WriteAllBytes("$PWD/project-source.zip", $zipBytes)
+
+          $hash = (Get-FileHash "$PWD/project-source.zip" -Algorithm SHA256).Hash.ToLower()
+          if ($hash -ne "8a54663af6dd2e8875ee6020338a19fd87396e515a8e6243c64406abb383d319") {
+            throw "Source ZIP SHA256 mismatch: $hash"
+          }
+
+          New-Item -ItemType Directory -Force -Path "$PWD/project" | Out-Null
+          Expand-Archive -Path "$PWD/project-source.zip" -DestinationPath "$PWD/project" -Force
+
+          $projectFile = Get-ChildItem "$PWD/project" -Recurse -Filter "OnyxRFLab.Windows.csproj" | Select-Object -First 1
+          if (-not $projectFile) {
+            throw "OnyxRFLab.Windows.csproj was not found after extraction."
+          }
+
+          "PROJECT_FILE=$($projectFile.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          Write-Host "Project restored from verified source package:"
+          Write-Host $projectFile.FullName
+
+      - name: Restore
+        shell: pwsh
+        run: dotnet restore "$env:PROJECT_FILE"
+
+      - name: Create standalone EXE
+        shell: pwsh
+        run: dotnet publish "$env:PROJECT_FILE" -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:PublishTrimmed=false -o "$PWD/dist/win-x64"
+
+      - name: Verify EXE
+        shell: pwsh
+        run: |
+          $exe = "$PWD/dist/win-x64/OnyxRFLab.exe"
+          if (-not (Test-Path $exe)) {
+            throw "OnyxRFLab.exe was not generated."
+          }
+          Get-Item $exe | Format-List Name, Length, FullName
+          Get-FileHash $exe -Algorithm SHA256
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: OnyxRFLab-EXE
+          path: dist/win-x64/OnyxRFLab.exe
+          if-no-files-found: error
+          retention-days: 30

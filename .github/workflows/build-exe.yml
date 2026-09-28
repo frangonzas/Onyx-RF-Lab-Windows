@@ -91,16 +91,32 @@ jobs:
           Get-FileHash $exe -Algorithm SHA256
 
       - name: Smoke test app startup
+        id: smoke
         shell: pwsh
+        continue-on-error: true
         run: |
           $exe = "$PWD/dist/win-x64/OnyxRFLab.exe"
+          $start = Get-Date
+          "ONYX_START_TIME=$($start.ToString('o'))" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           $p = Start-Process -FilePath $exe -PassThru
           Start-Sleep -Seconds 8
           if ($p.HasExited) {
-            throw "OnyxRFLab.exe exited during startup. Exit code: $($p.ExitCode)"
+            Write-Host "OnyxRFLab.exe exited during startup. Exit code: $($p.ExitCode)"
+            exit 1
           }
           Stop-Process -Id $p.Id -Force
           Write-Host "Startup smoke test passed: process remained alive for 8 seconds."
+
+      - name: Show Windows crash details
+        if: steps.smoke.outcome == 'failure'
+        shell: pwsh
+        run: |
+          Write-Host "Recent .NET Runtime / Application Error events:"
+          Get-WinEvent -FilterHashtable @{LogName='Application'; StartTime=(Get-Date).AddMinutes(-5)} -ErrorAction SilentlyContinue |
+            Where-Object { $_.ProviderName -in @('.NET Runtime','Application Error','Windows Error Reporting') -or $_.Message -match 'OnyxRFLab' } |
+            Select-Object -First 20 TimeCreated, ProviderName, Id, LevelDisplayName, Message |
+            Format-List
+          throw "Startup smoke test failed. See Windows event details above."
 
       - name: Upload EXE
         uses: actions/upload-artifact@v4

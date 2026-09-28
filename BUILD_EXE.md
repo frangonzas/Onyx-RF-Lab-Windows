@@ -21,3 +21,23 @@ GitHub usa un equipo Windows temporal, extrae el proyecto fuente, instala .NET 8
 ## Importante para usar HackRF
 
 El EXE no sustituye al driver ni a las herramientas de HackRF. En el PC donde conectes el HackRF deben estar disponibles el driver WinUSB y las herramientas `hackrf_info`, `hackrf_sweep` y `hackrf_transfer`.
+
+
+## Después de descargar el EXE: preparar HackRF
+
+El hecho de que `OnyxRFLab.exe` sea autocontenido no significa que incluya automáticamente las herramientas de HackRF.
+
+Antes de usar **START RX**, comprueba:
+
+```powershell
+hackrf_info
+hackrf_sweep -h
+```
+
+Si Onyx muestra:
+
+```text
+sweep error: no se encuentra hackrf_sweep.exe
+```
+
+consulta [docs/HACKRF_WINDOWS.md](./docs/HACKRF_WINDOWS.md). Ahí se explica la instalación de las herramientas y la comprobación del driver WinUSB.

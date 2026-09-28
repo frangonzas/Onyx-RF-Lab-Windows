@@ -1,4 +1,5 @@
 name: Build EXE - One Click
+# Source archive verified: 66,544 base64 chars · SHA256 pinned
 
 on:
   workflow_dispatch:

@@ -90,6 +90,18 @@ jobs:
           Get-Item $exe | Format-List Name, Length, FullName
           Get-FileHash $exe -Algorithm SHA256
 
+      - name: Smoke test app startup
+        shell: pwsh
+        run: |
+          $exe = "$PWD/dist/win-x64/OnyxRFLab.exe"
+          $p = Start-Process -FilePath $exe -PassThru
+          Start-Sleep -Seconds 8
+          if ($p.HasExited) {
+            throw "OnyxRFLab.exe exited during startup. Exit code: $($p.ExitCode)"
+          }
+          Stop-Process -Id $p.Id -Force
+          Write-Host "Startup smoke test passed: process remained alive for 8 seconds."
+
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:

@@ -68,6 +68,13 @@ jobs:
           $projectDir = Split-Path $projectFile.FullName -Parent
           Set-Content -Path (Join-Path $projectDir "GlobalUsings.Onyx.cs") -Value "global using System.IO;" -Encoding utf8
 
+          # WPF TextBox uses TwoWay binding by default. These VM properties are read-only.
+          $mainXaml = Join-Path $projectDir "MainWindow.xaml"
+          $xaml = Get-Content $mainXaml -Raw
+          $xaml = $xaml.Replace('Text="{Binding LastIqCapturePath}"', 'Text="{Binding LastIqCapturePath, Mode=OneWay}"')
+          $xaml = $xaml.Replace('Text="{Binding LastExportPath}"', 'Text="{Binding LastExportPath, Mode=OneWay}"')
+          Set-Content -Path $mainXaml -Value $xaml -Encoding utf8
+
           "PROJECT_FILE=$($projectFile.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           Write-Host "Project restored from verified source package:"
           Write-Host $projectFile.FullName

@@ -65,6 +65,9 @@ jobs:
             throw "OnyxRFLab.Windows.csproj was not found after extraction."
           }
 
+          $projectDir = Split-Path $projectFile.FullName -Parent
+          Set-Content -Path (Join-Path $projectDir "GlobalUsings.Onyx.cs") -Value "global using System.IO;" -Encoding utf8
+
           "PROJECT_FILE=$($projectFile.FullName)" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
           Write-Host "Project restored from verified source package:"
           Write-Host $projectFile.FullName

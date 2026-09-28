@@ -68,6 +68,27 @@ jobs:
           $projectDir = Split-Path $projectFile.FullName -Parent
           Set-Content -Path (Join-Path $projectDir "GlobalUsings.Onyx.cs") -Value "global using System.IO;" -Encoding utf8
 
+          # Metadatos visibles en Propiedades > Detalles del EXE.
+          [xml]$projXml = Get-Content $projectFile.FullName -Raw
+          $propertyGroup = @($projXml.Project.PropertyGroup)[0]
+          $metadata = [ordered]@{
+            Company = "FranGonzas"
+            Authors = "FranGonzas"
+            Product = "Onyx RF Lab"
+            Title = "Onyx RF Lab · Windows RF Observatory"
+            Description = "Onyx RF Lab for Windows · RF Observatory"
+            Copyright = "© 2026 FranGonzas"
+          }
+          foreach ($name in $metadata.Keys) {
+            $node = $propertyGroup.SelectSingleNode($name)
+            if (-not $node) {
+              $node = $projXml.CreateElement($name)
+              [void]$propertyGroup.AppendChild($node)
+            }
+            $node.InnerText = $metadata[$name]
+          }
+          $projXml.Save($projectFile.FullName)
+
           # WPF TextBox uses TwoWay binding by default. These VM properties are read-only.
           $mainXaml = Join-Path $projectDir "MainWindow.xaml"
           $xaml = Get-Content $mainXaml -Raw
@@ -96,6 +117,17 @@ jobs:
           }
           Get-Item $exe | Format-List Name, Length, FullName
           Get-FileHash $exe -Algorithm SHA256
+
+          $info = [System.Diagnostics.FileVersionInfo]::GetVersionInfo($exe)
+          Write-Host "ProductName: $($info.ProductName)"
+          Write-Host "CompanyName: $($info.CompanyName)"
+          Write-Host "LegalCopyright: $($info.LegalCopyright)"
+          if ($info.CompanyName -ne "FranGonzas") {
+            throw "Company metadata verification failed: $($info.CompanyName)"
+          }
+          if ($info.LegalCopyright -ne "© 2026 FranGonzas") {
+            throw "Copyright metadata verification failed: $($info.LegalCopyright)"
+          }
 
       - name: Smoke test app startup
         id: smoke

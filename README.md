@@ -6,6 +6,30 @@ En GitHub: **Actions → Build EXE - One Click → Run workflow → Artifacts �
 
 El ZIP descargado contiene `OnyxRFLab.exe`. Consulta [BUILD_EXE.md](./BUILD_EXE.md).
 
+<!-- SCREENSHOTS_HQ_START -->
+## 📸 Capturas reales de ejecución
+
+Capturas originales subidas directamente al repositorio, sin sustituirlas por versiones comprimidas. Pulsa cualquier imagen para abrirla a tamaño completo.
+
+| Overview · 433 MHz | Dashboard RF |
+|---|---|
+| [![Overview](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.43.29.png)](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.43.29.png) | [![Dashboard](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.02.png)](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.02.png) |
+
+| Spectrum | Waterfall |
+|---|---|
+| [![Spectrum](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.25.png)](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.25.png) | [![Waterfall](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.43.png)](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.43.png) |
+
+| RF Tracks | Bluetooth Devices |
+|---|---|
+| [![RF Tracks](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.00.png)](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.00.png) | [![Bluetooth Devices](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.20.png)](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.20.png) |
+
+| Events | Session |
+|---|---|
+| [![Events](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.50.png)](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.50.png) | [![Session](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.46.06.png)](docs/screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.46.06.png) |
+
+➡️ **[Abrir la galería técnica completa](./docs/SCREENSHOTS.md)**
+<!-- SCREENSHOTS_HQ_END -->
+
 ---
 
 # ONYX RF LAB · WINDOWS RF OBSERVATORY v1.0.1

@@ -1,53 +1,51 @@
-# Onyx RF Lab Windows · Technical Screenshots
+# Onyx RF Lab Windows · Capturas reales
 
-Estas capturas documentan una ejecución real de **Onyx RF Lab** en Windows 11 con **HackRF One** conectado. Muestran distintos módulos y bandas para que un usuario pueda evaluar la interfaz y el flujo operacional antes de descargar el ejecutable.
+Galería de ejecución real de **Onyx RF Lab**. Estas son las capturas originales cargadas manualmente en el repositorio y son las únicas imágenes utilizadas por esta documentación.
 
-> Las lecturas RF se presentan como magnitudes relativas salvo calibración explícita de la cadena de medida. Las vistas Bluetooth y HackRF son fuentes separadas y no implican atribución automática de identidad.
+> Las lecturas RF se presentan como magnitudes relativas salvo calibración explícita. La información Bluetooth del host y la energía RF observada por HackRF son fuentes separadas.
 
-## 1 · Live RF Overview · 433 MHz
+## 1 · Overview · 433 MHz
+Vista general de observación RF en 433 MHz, con espectro, waterfall, métricas y candidatos.
 
-Panel operacional con espectro, waterfall, historial de actividad y métricas principales.
+[![Overview](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.43.29.png)](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.43.29.png)
 
-![Onyx RF Lab live overview](screenshots/01-overview-live.jpg)
+## 2 · Dashboard RF
+Vista operacional ampliada con situación RF, actividad, waterfall e historial.
 
-## 2 · Live RF Activity
+[![Dashboard RF](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.02.png)](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.02.png)
 
-Vista de observación con actividad RF destacada, frecuencia seleccionada y evolución temporal de peak/noise.
+## 3 · Spectrum
+Inspector de espectro y candidatos RF.
 
-![Onyx RF Lab RF activity](screenshots/02-overview-activity.jpg)
+[![Spectrum](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.25.png)](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.25.png)
 
-## 3 · Spectrum · Bluetooth / 2.4 GHz
+## 4 · Waterfall
+Representación tiempo-frecuencia de la actividad observada.
 
-Barrido de 2.4 GHz con referencias de canales BLE y tabla de candidatos RF detectados.
-
-![Onyx RF Lab 2.4 GHz spectrum](screenshots/03-spectrum-24ghz.jpg)
-
-## 4 · Waterfall · Custom sweep
-
-Representación tiempo-frecuencia para inspeccionar persistencia, ocupación y aparición de energía.
-
-![Onyx RF Lab waterfall](screenshots/04-waterfall.jpg)
+[![Waterfall](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.43.png)](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.44.43.png)
 
 ## 5 · Persistent RF Tracks
+Mapa y listado de candidatos RF persistentes.
 
-Agrupación estadística de candidatos recurrentes con frecuencia, hits, persistencia, SNR, peak, ancho de banda y tiempos first/last seen.
+[![RF Tracks](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.00.png)](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.00.png)
 
-![Onyx RF Lab persistent RF tracks](screenshots/05-rf-tracks.jpg)
+## 6 · Bluetooth Devices
+Inventario Bluetooth conocido por el sistema operativo, separado de la observación RF HackRF.
 
-## 6 · Baseline Change Events
+[![Bluetooth Devices](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.20.png)](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.20.png)
 
-Registro de cambios frente al baseline con nivel, tipo, frecuencia, potencia actual, delta, SNR y ancho de banda.
+## 7 · Events
+Registro de cambios detectados respecto al baseline.
 
-![Onyx RF Lab events](screenshots/06-events.jpg)
+[![Events](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.50.png)](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.45.50.png)
 
-## 7 · Session & Evidence
+## 8 · Session
+Resumen de sesión y evidencia local/exportación.
 
-Resumen de sesión con banda, sweep, frames, tracks, eventos y rutas de evidencia/exportación.
-
-![Onyx RF Lab session evidence](screenshots/07-session-evidence.jpg)
+[![Session](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.46.06.png)](screenshots/Captura%20de%20pantalla%202026-09-28%20a%20las%2022.46.06.png)
 
 ---
 
 **Onyx RF Lab · Windows RF Observatory**  
-**Created by FranGonzas · Software · Systems · Security**  
-© 2026 FranGonzas
+**Created by Fran Gonzas · Software · Systems · Security**  
+© 2026 Fran Gonzas

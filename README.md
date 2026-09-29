@@ -107,20 +107,4 @@ AUTHORIZED OBSERVATION ONLY
 
 ---
 
-## 📸 Capturas reales
 
-<p align="center">
-  <img src="docs/screenshots/01-overview-live.jpg" width="49%" alt="Overview live">
-  <img src="docs/screenshots/02-overview-activity.jpg" width="49%" alt="Overview activity">
-</p>
-<p align="center">
-  <img src="docs/screenshots/03-spectrum-24ghz.jpg" width="49%" alt="Spectrum 2.4 GHz">
-  <img src="docs/screenshots/04-waterfall.jpg" width="49%" alt="Waterfall">
-</p>
-<p align="center">
-  <img src="docs/screenshots/05-rf-tracks.jpg" width="49%" alt="RF Tracks">
-  <img src="docs/screenshots/06-events.jpg" width="49%" alt="Events">
-</p>
-<p align="center">
-  <img src="docs/screenshots/07-session-evidence.jpg" width="70%" alt="Session evidence">
-</p>
